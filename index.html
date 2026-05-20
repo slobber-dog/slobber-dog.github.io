@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>slobberdog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* tweakable bits driven by CSS vars on <body> */
+  .typer { opacity: var(--typer-opacity, 0.55); }
+  body.no-grain::before { display: none; }
+  body.no-scan::after { display: none; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+
+  <script type="text/babel">
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "typeSpeed": 85,
+  "deleteSpeed": 38,
+  "linger": 2600,
+  "gap": 700,
+  "typerOpacity": 55,
+  "logoScale": 100,
+  "grain": true,
+  "scanlines": true,
+  "showCaret": true
+} /*EDITMODE-END*/;
+
+const LINES = [
+"invention studio",
+"clever little things",
+"technical r&d",
+"strange machines",
+"prototypes, protoforms, protofictions"];
+
+
+function Typer({ speed, deleteSpeed, linger, gap, showCaret }) {
+  const [text, setText] = React.useState("");
+  const stateRef = React.useRef({ line: 0, ch: 0, del: false, timer: null });
+  // pull params via ref so we don't restart the loop on each tweak change
+  const paramsRef = React.useRef({ speed, deleteSpeed, linger, gap });
+  paramsRef.current = { speed, deleteSpeed, linger, gap };
+
+  React.useEffect(() => {
+    const s = stateRef.current;
+    function tick() {
+      const { speed, deleteSpeed, linger, gap } = paramsRef.current;
+      const line = LINES[s.line];
+      if (!s.del) {
+        s.ch++;
+        setText(line.slice(0, s.ch));
+        if (s.ch >= line.length) {
+          s.del = true;
+          s.timer = setTimeout(tick, linger);
+          return;
+        }
+        s.timer = setTimeout(tick, speed + Math.random() * 50);
+      } else {
+        s.ch--;
+        setText(line.slice(0, s.ch));
+        if (s.ch <= 0) {
+          s.del = false;
+          s.line = (s.line + 1) % LINES.length;
+          s.timer = setTimeout(tick, gap);
+          return;
+        }
+        s.timer = setTimeout(tick, deleteSpeed);
+      }
+    }
+    s.timer = setTimeout(tick, 600);
+    return () => clearTimeout(s.timer);
+  }, []);
+
+  return (
+    <div className="typer" aria-live="polite">
+          <span className="prompt">$</span>
+          <span>{text}</span>
+          {showCaret && <span className="caret" aria-hidden="true" />}
+        </div>);
+
+}
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    document.body.classList.toggle("no-grain", !t.grain);
+    document.body.classList.toggle("no-scan", !t.scanlines);
+    document.body.style.setProperty("--typer-opacity", (t.typerOpacity / 100).toFixed(2));
+  }, [t.grain, t.scanlines, t.typerOpacity]);
+
+  const logoWidth = `min(${Math.round(560 * t.logoScale / 100)}px, ${Math.round(78 * t.logoScale / 100)}vw)`;
+
+  return (
+    <>
+          <div className="topbar">
+            <span className="brand"></span>
+            <nav>
+              <a href="about.html">about</a>
+              <a href="contact.html">contact</a>
+            </nav>
+          </div>
+
+          <main>
+            <img className="logo" src="assets/slobberdog-logo.png" alt="slobberdog"
+        style={{ width: logoWidth, opacity: "0.8" }} />
+            <Typer speed={t.typeSpeed} deleteSpeed={t.deleteSpeed}
+        linger={t.linger} gap={t.gap} showCaret={t.showCaret} />
+          </main>
+
+          <footer>
+            <span><span className="blink-dot"></span>operating</span>
+            <span>woof.</span>
+          </footer>
+
+          <TweaksPanel title="tweaks">
+            <TweakSection label="typing">
+              <TweakSlider label="type speed" value={t.typeSpeed} min={20} max={200} step={5} unit="ms"
+          onChange={(v) => setTweak('typeSpeed', v)} />
+              <TweakSlider label="delete speed" value={t.deleteSpeed} min={15} max={120} step={1} unit="ms"
+          onChange={(v) => setTweak('deleteSpeed', v)} />
+              <TweakSlider label="linger" value={t.linger} min={500} max={6000} step={100} unit="ms"
+          onChange={(v) => setTweak('linger', v)} />
+              <TweakSlider label="gap" value={t.gap} min={100} max={2500} step={50} unit="ms"
+          onChange={(v) => setTweak('gap', v)} />
+              <TweakSlider label="opacity" value={t.typerOpacity} min={10} max={100} step={5} unit="%"
+          onChange={(v) => setTweak('typerOpacity', v)} />
+              <TweakToggle label="caret" value={t.showCaret}
+          onChange={(v) => setTweak('showCaret', v)} />
+            </TweakSection>
+            <TweakSection label="logo">
+              <TweakSlider label="size" value={t.logoScale} min={50} max={140} step={5} unit="%"
+          onChange={(v) => setTweak('logoScale', v)} />
+            </TweakSection>
+            <TweakSection label="atmosphere">
+              <TweakToggle label="grain" value={t.grain}
+          onChange={(v) => setTweak('grain', v)} />
+              <TweakToggle label="scanlines" value={t.scanlines}
+          onChange={(v) => setTweak('scanlines', v)} />
+            </TweakSection>
+          </TweaksPanel>
+        </>);
+
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
