@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ownership — slobberdog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="doc-page ownership-page">
+  <div class="topbar">
+    <a class="brand" href="index.html">slobberdog &nbsp;//&nbsp; r&amp;d</a>
+    <nav>
+      <a href="about.html">about</a>
+      <a href="ownership.html" class="active">ownership</a>
+      <a href="terms.html">terms</a>
+      <a href="contact.html">contact</a>
+    </nav>
+  </div>
+
+  <main class="doc-main">
+    <div class="section-label">// ownership model</div>
+    <article class="document">
+      <h1>SLOBBERDOG Ownership Model Explainer</h1>
+<p><strong>How SLOBBERDOG builds client systems without making ownership weird</strong><br />
+<strong>Version:</strong> 1.2
+<strong>Date:</strong> 18 February 2026</p>
+<hr />
+<h2>The short version</h2>
+<p>You own your stuff. SLOBBERDOG owns its engine. Third-party platforms own theirs.</p>
+<p>You get the access and rights needed to use the system we build for the agreed purpose. If you want exclusive access, source code, self-hosting, white-labelling or ownership of the underlying platform, that is a separate commercial deal.</p>
+<hr />
+<h2>Why we separate the layers</h2>
+<p>Most AI and automation projects are not built from nothing. They combine client-specific knowledge, reusable technical infrastructure, public tools, model APIs, automation glue, custom configuration and human review.</p>
+<p>If we pretend all of that is one undifferentiated blob called “the product”, ownership gets messy quickly.</p>
+<p>SLOBBERDOG separates the work into three layers so everyone knows what belongs to whom, what can be reused, and what is simply being accessed under another provider’s terms.</p>
+<hr />
+<h2>The three-layer model</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Plain-English meaning</th>
+<th>Default position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Project Layer</strong></td>
+<td>Your materials, your context, your confidential information, your internal requirements, your project-specific setup and the outputs created for your use.</td>
+<td>Yours, subject to third-party terms and whatever rights SLOBBERDOG can legally give you.</td>
+</tr>
+<tr>
+<td><strong>2. SLOBBERDOG Core Technology Layer</strong></td>
+<td>The reusable engine underneath: agents, automations, orchestration logic, workflows, code, templates, APIs, dashboards, testing systems and general methods.</td>
+<td>SLOBBERDOG’s. You get access or a licence as needed to use the project.</td>
+</tr>
+<tr>
+<td><strong>3. Third-Party Services Layer</strong></td>
+<td>Public or commercial tools we connect to: model APIs, image/music/video tools, cloud platforms, automation services, storage, monitoring and other providers.</td>
+<td>The provider’s. Use depends on their terms, pricing and availability.</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>What belongs to you</h2>
+<p>The project-specific layer belongs to you.</p>
+<p>This includes:</p>
+<ul>
+<li>your confidential inputs, scripts, briefs, footage, audio, data, production context, brand assets, internal requirements and business information;</li>
+<li>your company-specific workflow configuration, approval structures, naming conventions, routing rules, task instructions and metadata rules;</li>
+<li>project documents, reports, final outputs and agreed deliverables created specifically for your project, to the extent SLOBBERDOG can grant those rights;</li>
+<li>your accounts, subscriptions, assets and source materials, where the project runs through client-owned systems.</li>
+</ul>
+<p>In practical terms: SLOBBERDOG does not get to take your show bible, unpublished footage, internal notes, audience data, production strategy or brand materials and use them for someone else.</p>
+<hr />
+<h2>What belongs to SLOBBERDOG</h2>
+<p>The reusable technology layer belongs to SLOBBERDOG.</p>
+<p>This includes:</p>
+<ul>
+<li>the agentic automation engine and orchestration layer;</li>
+<li>general-purpose agents, agent roles, reusable workflows and task-routing patterns;</li>
+<li>reusable prompt frameworks, evaluation methods, safety checks and quality-control processes;</li>
+<li>software libraries, API wrappers, dashboards, connectors, scripts and deployment methods;</li>
+<li>infrastructure patterns, monitoring approaches and managed-service systems;</li>
+<li>generic improvements created during the project that do not expose or depend on your confidential information;</li>
+<li>general know-how, methods and lessons learned from building and operating agentic systems.</li>
+</ul>
+<p>In practical terms: if we expose a SLOBBERDOG API so your internal tool can call our automation engine, you are getting access to the engine. You are not buying the engine itself.</p>
+<hr />
+<h2>What belongs to third-party providers</h2>
+<p>Where useful, SLOBBERDOG may connect your system to public or third-party tools.</p>
+<p>Examples might include:</p>
+<ul>
+<li>large language model APIs;</li>
+<li>generative image tools;</li>
+<li>generative music tools;</li>
+<li>generative video tools;</li>
+<li>voice or transcription tools;</li>
+<li>cloud services;</li>
+<li>automation platforms;</li>
+<li>storage and monitoring systems.</li>
+</ul>
+<p>Those services are not owned by you or by SLOBBERDOG. They are used under their own terms, pricing, availability, content rules and data policies.</p>
+<p>A project can be designed to minimise dependency on a particular provider, but no third-party tool should be treated as if it is owned by the project unless the provider's terms actually say so.</p>
+<hr />
+<h2>A TV/entertainment example</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Ownership position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>We build an internal assistant that turns episode notes into summaries, promo copy and asset requests.</td>
+<td>Your notes, show context, approval rules, brand voice and generated project outputs are your layer. The reusable summarisation, routing and agent orchestration system is SLOBBERDOG’s layer. Any model API used underneath remains the provider’s layer.</td>
+</tr>
+<tr>
+<td>We create a generative workflow that helps develop moodboards, temporary music directions or pitch references.</td>
+<td>The project brief and approved outputs are your layer, subject to rights clearance and third-party terms. The generic workflow and prompt/evaluation framework remain SLOBBERDOG technology. Public tools remain subject to their own licences.</td>
+</tr>
+<tr>
+<td>We expose a SLOBBERDOG API so your internal tool can call our automation engine.</td>
+<td>The API access lets your product work. It does not mean the underlying engine has been sold. Owning the client app is different from owning the platform it calls.</td>
+</tr>
+<tr>
+<td>We build a project-specific dashboard that shows your team's approvals, assets and outputs.</td>
+<td>The data, content and company-specific configuration are your layer. The reusable dashboard components, backend services, agent engine and deployment patterns are SLOBBERDOG’s layer unless we agree otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>What SLOBBERDOG can reuse</h2>
+<p>SLOBBERDOG can reuse general-purpose technology and know-how, including reusable agents, workflows, templates, engine improvements, API patterns, infrastructure patterns, testing approaches and lessons learned.</p>
+<p>This is what lets us improve the platform over time and deliver future work faster.</p>
+<p>For example, SLOBBERDOG may reuse:</p>
+<ul>
+<li>a generic summary workflow pattern;</li>
+<li>a generic approval-routing agent;</li>
+<li>a prompt-quality testing process;</li>
+<li>a metadata extraction pipeline;</li>
+<li>a dashboard component;</li>
+<li>an API wrapper;</li>
+<li>a safety or review checklist.</li>
+</ul>
+<hr />
+<h2>What SLOBBERDOG cannot reuse</h2>
+<p>SLOBBERDOG cannot reuse or disclose your confidential layer.</p>
+<p>That means we do not reuse:</p>
+<ul>
+<li>your confidential information;</li>
+<li>your unpublished scripts, show materials, internal notes or production documents;</li>
+<li>your commercial plans, audience data or strategy;</li>
+<li>your brand assets or client-owned media except for your project;</li>
+<li>your data or personal information except as required to provide the service;</li>
+<li>anything that would reveal your strategy, internal operations, creative direction, production pipeline or competitive position.</li>
+</ul>
+<hr />
+<h2>What exclusivity means</h2>
+<p>By default, you are buying a project outcome and access to the technology needed to use it. You are not buying the right to stop SLOBBERDOG using its platform for anyone else.</p>
+<p>If exclusivity is core to your strategy, that is a possibility, but it changes the economics.</p>
+<p>Exclusivity might mean:</p>
+<ul>
+<li>sector exclusivity;</li>
+<li>competitor restrictions;</li>
+<li>a private engine;</li>
+<li>source-code ownership;</li>
+<li>self-hosting;</li>
+<li>white-labelling;</li>
+<li>a buy-out of platform rights.</li>
+</ul>
+<p>Each needs to be scoped and priced deliberately.</p>
+<hr />
+<h2>Generative AI: the practical caution</h2>
+<p>AI systems are useful, but they are not magic rights-clearance machines.</p>
+<p>Before broadcast, publication, advertising, talent-facing use or external commercial release:</p>
+<ul>
+<li>AI outputs need human review;</li>
+<li>factual claims need checking;</li>
+<li>scripts, footage, music, voice, likeness, brand assets and performance materials need appropriate rights;</li>
+<li>public tools should not receive sensitive or rights-restricted material unless that use has been approved;</li>
+<li>a real person’s voice, likeness, identity or performance should not be generated or imitated without explicit rights and consent;</li>
+<li>some AI outputs may not be exclusive, protectable or safe for commercial exploitation without further clearance.</li>
+</ul>
+<p>If a deliverable needs legal, copyright, music, broadcast, talent, guild, privacy, defamation, advertising or classification clearance, that should be scoped as a separate clearance process.</p>
+<hr />
+<h2>The clean proposition</h2>
+<blockquote>
+<p>The project-specific layer is yours.<br />
+The reusable technology layer is ours.<br />
+Third-party tools remain governed by their providers.<br />
+You get what you need to use the system we build.<br />
+We stay free to keep building SLOBBERDOG into a better agentic automation platform.<br />
+No exclusivity is implied unless we write it down and price it properly.</p>
+</blockquote>
+<hr />
+<h2>Summary</h2>
+<p>SLOBBERDOG builds on and leverages our own reusable technical platform.</p>
+<p>The client-specific work stays with the client: your data, your confidential context, your project-specific workflow configuration, your outputs and your internal operating requirements.</p>
+<p>The underlying engine stays with SLOBBERDOG: the reusable agents, workflow methods, orchestration logic, APIs, dashboards, testing systems and infrastructure patterns. You may interact with those tools through an app, API, automation, dashboard or managed service, but that access does not transfer ownership of the platform itself.</p>
+<hr />
+<p align="center"><strong>SLOBBERDOG.FYI</strong><br>You own your stuff. We own the engine. Nobody owns the third-party weirdness.</p>
+
+    </article>
+  </main>
+
+  <footer>
+    <span>woof.</span>
+  </footer>
+</body>
+</html>
