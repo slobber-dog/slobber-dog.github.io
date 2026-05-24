@@ -9,74 +9,78 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
-  /* Fix for the "squished" layout */
+  /* Slobberdog Brutalist UI Refinements */
+  body {
+    background-color: #000; /* Assuming dark mode based on "white text" comment */
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: lowercase; /* Force lowercase brand style */
+  }
+
   main {
-    max-width: 900px; /* Increased from standard doc width */
+    max-width: 850px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 1.5rem;
+  }
+
+  /* Text Contrast Levels */
+  .bright { color: #fff; font-weight: 500; }
+  .muted { color: rgba(255, 255, 255, 0.4); }
+
+  /* Tightened Vertical Rhythm */
+  h2 {
+    margin: 2rem 0 1rem 0; /* Reduced spacing */
+    font-size: 1rem;
+    color: #fff;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.2rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
   }
 
   .intro {
-    margin-bottom: 4rem;
-    line-height: 1.8;
-  }
-
-  .lead {
-    display: block;
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: #000;
-  }
-
-  h2 {
-    margin-top: 5rem;
     margin-bottom: 2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 1.1rem;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 0.5rem;
   }
 
-  /* Table styling to prevent squishing */
+  /* Table: Fixed Squishing & High Contrast */
   .pricing-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 2rem 0;
-    font-size: 0.95rem;
+    margin: 1rem 0;
   }
 
   .pricing-table th {
     text-align: left;
-    padding: 1.5rem 1rem;
-    border-bottom: 2px solid #000;
-    text-transform: uppercase;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #fff;
+    color: #fff;
     font-size: 0.8rem;
-    color: #666;
   }
 
   .pricing-table td {
-    padding: 1.5rem 1rem;
-    border-bottom: 1px solid #eee;
+    padding: 1rem 0;
+    border-bottom: 1px solid #222;
     vertical-align: top;
   }
 
-  /* Specific column widths to balance the look */
-  .pricing-table td:nth-child(1) { width: 40%; font-weight: 500; }
-  .pricing-table td:nth-child(2) { width: 30%; }
-  .pricing-table td:nth-child(3) { width: 30%; color: #666; }
+  /* Row Content Contrast */
+  .pricing-table td:nth-child(1) { color: #fff; width: 40%; } /* Engagement Name - Bright */
+  .pricing-table td:nth-child(2) { color: rgba(255, 255, 255, 0.9); width: 30%; } /* Price - Bright-ish */
+  .pricing-table td:nth-child(3) { color: rgba(255, 255, 255, 0.4); width: 30%; } /* Duration - Muted */
 
-  .pricing-footer-note {
-    margin-top: 2rem;
-    font-size: 0.85rem;
-    color: #666;
-    line-height: 1.6;
+  .section-label {
+    color: #ff3e00; /* Optional brand accent color */
+    margin-bottom: 1rem;
+    font-weight: 700;
   }
 
-  p {
-    margin-bottom: 2rem;
-    line-height: 1.7;
+  footer {
+    margin-top: 3rem;
+    padding: 1rem;
+    border-top: 1px solid #222;
+    color: rgba(255, 255, 255, 0.2);
   }
 </style>
 </head>
@@ -96,8 +100,7 @@
     <div class="section-label">// pricing</div>
     
     <div class="intro">
-      <span class="lead">transparency matters.</span> 
-      <p>If you’re not sure what the ballpark looks like, here’s a guide to typical project ranges. Every engagement is scoped and quoted against your specific needs.</p>
+      <p><span class="bright">transparency matters.</span> <span class="muted">if you’re not sure what the ballpark looks like, here’s a guide to typical project ranges. every engagement is scoped and quoted against your specific needs.</span></p>
     </div>
 
     <h2>ballpark ranges</h2>
@@ -139,14 +142,18 @@
       </tbody>
     </table>
 
-    <div class="pricing-footer-note">
-      <p>These ranges are drawn from Australian market data and reflect the cost of experienced AI research and engineering talent. Specialized roles such as Agent Architects and LLM Specialists command day rates around $1,500+.</p>
-    </div>
+    <p class="muted">
+      these ranges are drawn from australian market data and reflect the cost of experienced ai research and engineering talent. specialized roles such as agent architects and llm specialists command day rates around $1,500+.
+    </p>
 
     <h2>what affects cost?</h2>
-    <p>The complexity of the workflows, the number of integrations, data preparation requirements, compliance hurdles, and change management all drive where your investment sits. We break projects into small, focused phases so that value is realised quickly and risk remains low.</p>
+    <p>
+      the complexity of the workflows, the number of integrations, and data preparation requirements drive the investment. <span class="bright">we break projects into small, focused phases</span> so that value is realised quickly and risk remains low.
+    </p>
     
-    <p>Ready to start? Talk to us about your weird problem and we’ll put together a fixed-price proposal.</p>
+    <p class="muted">
+      ready to start? talk to us about your weird problem and we’ll put together a fixed-price proposal.
+    </p>
   </main>
 
   <footer>
