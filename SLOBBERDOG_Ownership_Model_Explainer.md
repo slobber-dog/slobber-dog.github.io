@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="slobberdog-logo.png" alt="SLOBBERDOG" width="360">
+  <img src="assets/slobberdog-logo.png" alt="SLOBBERDOG" width="360">
 </p>
 
 # SLOBBERDOG Ownership Model Explainer
