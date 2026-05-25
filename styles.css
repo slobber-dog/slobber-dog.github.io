@@ -196,7 +196,7 @@ footer {
 }
 
 /* Align inner pages content to start from the top instead of vertical center */
-main:has(.section-label) {
+main.inner-main, main:has(.section-label) {
   justify-content: flex-start;
   padding-top: 100px;
 }
