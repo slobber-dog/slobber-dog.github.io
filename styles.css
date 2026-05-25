@@ -183,6 +183,15 @@ footer {
   font-style: italic;
   color: #b8b8b8;
 }
+.about a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.25);
+  transition: text-decoration-color 160ms ease;
+}
+.about a:hover {
+  text-decoration-color: var(--fg);
+}
 
 /* small label above body content on inner pages */
 .section-label {
