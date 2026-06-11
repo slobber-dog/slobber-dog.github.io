@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLOBBERDOG // convert to STL</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Convert 3D GLB files to print-ready binary STL files with the SLOBBERDOG Prototype Bureau. Includes auto-grounding, filament simulation, and exact weight/volume estimation.">
+  <meta name="keywords" content="GLB to STL, 3D printing converter, Three.js STL exporter, slobberdog, Leonardo AI STL export">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Favicon placeholder or fallback -->
+  <link rel="icon" type="image/png" href="1.png">
+
+  <!-- ES Module Shims polyfill to support import maps in browser -->
+  <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+  <!-- Import map to resolve bare module specifiers used inside Three JSM examples -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="topbar">
+        <a class="brand" href="https://slobberdog.fyi" target="_blank">slobberdog &nbsp;//&nbsp; r&amp;d</a>
+        <div class="section-label-header">// glb -> stl</div>
+        <nav>
+          <a href="https://slobberdog.fyi/about" target="_blank">about</a>
+          <a href="https://slobberdog.fyi/contact" target="_blank">contact</a>
+          <a href="https://slobberdog.fyi/pricing" target="_blank">pricing</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Workspace Grid -->
+    <main class="app-workspace">
+      
+      <!-- Left Sidebar: Controls -->
+      <section class="sidebar-panel">
+        
+        <!-- Section: File Upload -->
+        <div class="control-card file-card">
+          <div class="card-header">
+            <h3>1. Model Source</h3>
+          </div>
+          <div class="card-body">
+            <div id="drop-zone" class="drop-zone">
+              <div class="drop-zone-content">
+                <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5h10.5a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0017.25 4.5H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25z" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p class="drop-text-primary">Drag & Drop GLB file</p>
+                <p class="drop-text-secondary">or click to browse</p>
+              </div>
+              <input type="file" id="file-input" accept=".glb,.gltf" style="display: none;">
+            </div>
+            <div id="file-info" class="file-info">
+              <span class="file-name-label" id="loaded-file-name">no model loaded. drop one below!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: Orientation & Base Align -->
+        <div class="control-card transform-card">
+          <div class="card-header">
+            <h3>2. Print Preparation</h3>
+          </div>
+          <div class="card-body">
+            <div class="action-row">
+              <button id="btn-center-ground" class="btn btn-primary btn-full" title="Align model to center and sit flat on the bed">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                </svg>
+                center & ground model
+              </button>
+            </div>
+            
+            <div class="control-group">
+              <label>Rotate 90° On Axis</label>
+              <div class="btn-grid">
+                <button id="btn-rot-x" class="btn btn-tertiary">x axis</button>
+                <button id="btn-rot-y" class="btn btn-tertiary">y axis</button>
+                <button id="btn-rot-z" class="btn btn-tertiary">z axis</button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <div class="label-row">
+                <label for="scale-range">Scale Factor</label>
+                <span id="scale-value" class="tech-value">100%</span>
+              </div>
+              <input type="range" id="scale-range" min="10" max="500" value="100" class="slider">
+              <div class="btn-grid-2 mt-2">
+                <button id="btn-scale-fit" class="btn btn-secondary btn-sm">Auto-Fit Bed</button>
+                <button id="btn-scale-reset" class="btn btn-secondary btn-sm">Reset (100%)</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: Material & View Options -->
+        <div class="control-card materials-card">
+          <div class="card-header">
+            <h3>3. filament & render style</h3>
+          </div>
+          <div class="card-body">
+            <div class="control-group">
+              <label>view mode</label>
+              <div class="toggle-group">
+                <button id="btn-view-solid" class="btn toggle-btn active">solid</button>
+                <button id="btn-view-wire" class="btn toggle-btn">wireframe</button>
+                <button id="btn-view-ghost" class="btn toggle-btn">x-ray</button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label>filament color</label>
+              <div class="filament-palette" id="filament-palette">
+                <!-- Programmatically generated color swatches -->
+                <button class="color-swatch active" style="background-color: #3b82f6;" data-color="#3b82f6" title="slobberdog blue"></button>
+                <button class="color-swatch" style="background-color: #8b5cf6;" data-color="#8b5cf6" title="prototype purple"></button>
+                <button class="color-swatch" style="background-color: #ef4444;" data-color="#ef4444" title="flame red"></button>
+                <button class="color-swatch" style="background-color: #10b981;" data-color="#10b981" title="high-viz green"></button>
+                <button class="color-swatch" style="background-color: #f59e0b;" data-color="#f59e0b" title="industrial amber"></button>
+                <button class="color-swatch" style="background-color: #ffffff;" data-color="#ffffff" title="matte white"></button>
+                <button class="color-swatch" style="background-color: #1f2937;" data-color="#1f2937" title="stealth grey"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Center Panel: WebGL 3D Canvas -->
+      <section class="canvas-panel">
+        
+        <!-- Overlay: Model Statistics -->
+        <div class="stats-overlay">
+          <div class="stats-header">
+            <span class="pulse-dot"></span>
+            <h4>PHYSICAL ESTIMATIONS</h4>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-row">
+              <span class="stat-label">BOUNDS X (Width)</span>
+              <span class="stat-val" id="val-dim-x">0.0 mm</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">BOUNDS Y (Depth)</span>
+              <span class="stat-val" id="val-dim-y">0.0 mm</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">BOUNDS Z (Height)</span>
+              <span class="stat-val" id="val-dim-z">0.0 mm</span>
+            </div>
+            <hr class="stats-divider">
+            <div class="stat-row">
+              <span class="stat-label">VOLUME (Solid)</span>
+              <span class="stat-val highlight" id="val-volume">0.00 cm³</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">EST. PRINT WEIGHT</span>
+              <span class="stat-val highlight" id="val-weight">0.00 g</span>
+            </div>
+          </div>
+          
+          <div class="stats-controls">
+            <div class="control-group-sm">
+              <div class="label-row-sm">
+                <label>Filament Density</label>
+                <select id="density-select" class="dropdown-sm">
+                  <option value="1.24">PLA (1.24 g/cm³)</option>
+                  <option value="1.27">PETG (1.27 g/cm³)</option>
+                  <option value="1.04">ABS (1.04 g/cm³)</option>
+                  <option value="1.21">TPU (1.21 g/cm³)</option>
+                </select>
+              </div>
+            </div>
+            <div class="control-group-sm">
+              <div class="label-row-sm">
+                <label>Slicer Infill %</label>
+                <span id="infill-value" class="tech-value">20%</span>
+              </div>
+              <input type="range" id="infill-range" min="0" max="100" value="20" class="slider slider-sm">
+            </div>
+          </div>
+        </div>
+
+        <!-- The 3D Rendering Container -->
+        <div id="canvas-container" class="canvas-container">
+          <div class="canvas-loading" id="canvas-loader">
+            <div class="spinner"></div>
+            <p>Processing 3D Geometry...</p>
+          </div>
+        </div>
+
+        <!-- Footer Overlay: Big Action Export Button -->
+        <div class="export-overlay">
+          <button id="btn-export-stl" class="btn btn-export">
+            <svg class="export-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            export stl
+          </button>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Bottom Footer -->
+    <footer class="app-footer">
+      <div class="footer-left">
+        <span>woof.</span>
+      </div>
+      <div class="footer-right">
+        <span>from the workbench of the prototype bureau</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Custom Alert Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <span class="toast-title">SLOBBERDOG PIPELINE</span>
+      <span class="toast-message" id="toast-message">Exporting STL file...</span>
+    </div>
+  </div>
+
+  <!-- Three.js + App Code -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
