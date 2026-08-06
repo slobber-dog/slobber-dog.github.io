@@ -31,13 +31,13 @@
 
     const selected = new Set();
     const buttons = Array.from(picker.querySelectorAll("[data-material]"));
-    const routes = Array.from(document.querySelectorAll("[data-problem-route]"));
+    const routes = Array.from(document.querySelectorAll("[data-problem-route], [data-discovery-link]"));
 
     function update() {
       const values = Array.from(selected);
       buttons.forEach(button => button.setAttribute("aria-pressed", String(selected.has(button.dataset.material))));
       routes.forEach(route => {
-        const url = new URL(route.dataset.problemRoute, window.location.href);
+        const url = new URL(route.dataset.problemRoute || route.getAttribute("href"), window.location.href);
         if (values.length) url.searchParams.set("touches", values.join(","));
         else url.searchParams.delete("touches");
         route.href = url.pathname + url.search;
@@ -66,6 +66,12 @@
     if (!container) return;
 
     const selected = selectedFromUrl();
+    const discovery = document.querySelector("[data-discovery-link]");
+    if (discovery && selected.length) {
+      const discoveryUrl = new URL(discovery.getAttribute("href"), window.location.href);
+      discoveryUrl.searchParams.set("touches", selected.join(","));
+      discovery.href = discoveryUrl.pathname + discoveryUrl.search;
+    }
     if (!selected.length) return;
 
     container.hidden = false;

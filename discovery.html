@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>problem sketch — slobberdog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="a free, private problem sketch for turning panic into a clearer account of what to investigate next.">
+</head>
+<body class="sketch-page">
+  <div class="topbar">
+    <a class="brand" href="/">slobberdog &nbsp;//&nbsp; r&amp;d</a>
+    <nav>
+      <a href="/problems.html" class="active">what's your problem?</a>
+      <a href="/about.html">about</a>
+      <a href="/contact.html">contact</a>
+      <a href="/commercials.html">commercials</a>
+      <a href="/clearance.html">clearance</a>
+    </nav>
+  </div>
+
+  <main class="sketch-main">
+    <section class="sketch-panel sketch-landing" data-view="landing">
+      <div class="section-label">// problem sketch</div>
+      <h1>panic to clarity converter</h1>
+      <p class="sketch-lede">you might not need another brain on this. work through these questions and see what you find.</p>
+      <div class="selected-context" data-sketch-context hidden><span class="context-label">touches:</span></div>
+      <div class="sketch-notes">
+        <p>what comes out is an editable problem sketch. there is no score and no automated diagnosis. your answers stay in this browser unless you choose to share them.</p>
+        <p>allow about 10–15 minutes. you can skip questions, save your work and return later.</p>
+        <p><strong>do not enter confidential, controlled, personal, export-controlled or security-sensitive information.</strong> if the problem requires a private channel, email <a href="mailto:schemes@slobberdog.fyi">schemes@slobberdog.fyi</a> without including the sensitive details.</p>
+      </div>
+      <div class="actions">
+        <button class="button-link primary" type="button" data-start>begin discovery →</button>
+        <button class="button-link" type="button" data-continue hidden>continue saved work →</button>
+        <a class="button-link" href="mailto:schemes@slobberdog.fyi?subject=problem%20proposal">propose a problem →</a>
+      </div>
+    </section>
+
+    <form class="sketch-form" data-sketch-form hidden novalidate>
+      <header class="sketch-progress">
+        <span data-stage-label>stage 1 of 5 — what's real</span>
+        <span class="save-status" data-save-status aria-live="polite">saved locally</span>
+      </header>
+
+      <section class="sketch-question" data-question="q1" data-stage="1" data-stage-name="what's real" hidden>
+        <div class="question-number">q1</div>
+        <h1>meditate on a recent experience that was vexing to you. recall what conditions led to it occurring, how you (/your team) responded, and what if anything happened as a result?</h1>
+        <button class="prompt-toggle" type="button" aria-expanded="false">need a prompt?</button>
+        <p class="question-prompt" hidden>pick one specific, real episode. avoid generalisations and hypotheticals.</p>
+        <label for="q1_episode">one real episode</label>
+        <textarea id="q1_episode" name="q1_episode" rows="9"></textarea>
+      </section>
+
+      <section class="sketch-question" data-question="q2" data-stage="1" data-stage-name="what's real" hidden>
+        <div class="question-number">q2</div>
+        <h1>what would the experience have been instead, if we were in a dream world?</h1>
+        <button class="prompt-toggle" type="button" aria-expanded="false">need a prompt?</button>
+        <p class="question-prompt" hidden>describe the outcome rather than focusing on a product or technology.</p>
+        <label for="q2_outcome">dream-world outcome</label>
+        <textarea id="q2_outcome" name="q2_outcome" rows="7"></textarea>
+      </section>
+
+      <section class="sketch-question" data-question="q3" data-stage="1" data-stage-name="what's real" hidden>
+        <div class="question-number">q3</div>
+        <h1>whose version of the problem is this?</h1>
+        <label for="q3_version">whose account are we working with?</label>
+        <textarea id="q3_version" name="q3_version" rows="4"></textarea>
+        <label for="q3_others">who else has experienced the consequences of this problem? would they describe the events and the impact the same way, or differently?</label>
+        <textarea id="q3_others" name="q3_others" rows="6"></textarea>
+      </section>
+
+      <section class="sketch-question" data-question="q4" data-stage="2" data-stage-name="mechanisms" hidden>
+        <div class="question-number">q4</div>
+        <h1>describe the decisions and actions that take place from the moment of the trigger to the final outcome.</h1>
+        <div class="answer-reference" data-reference="q1-q2"></div>
+        <p class="question-copy">this is a step-by-step answer. focus on each choice, handoff, system interaction, bottleneck and informal workaround.</p>
+        <button class="prompt-toggle" type="button" aria-expanded="false">need a prompt?</button>
+        <p class="question-prompt" hidden>add as many steps as you need. “it goes through the usual process” is not yet a mechanism.</p>
+        <label for="q4_mechanism">what happens now, step by step</label>
+        <textarea id="q4_mechanism" name="q4_mechanism" rows="11"></textarea>
+      </section>
+
+      <section class="sketch-question" data-question="q5" data-stage="2" data-stage-name="mechanisms" hidden>
+        <div class="question-number">q5</div>
+        <h1>what do you currently think needs to change or be built?</h1>
+        <label for="q5_proposal">current proposal</label>
+        <textarea id="q5_proposal" name="q5_proposal" rows="4"></textarea>
+        <label class="check-line"><input type="checkbox" name="q5_no_proposal"> we do not have one yet</label>
+        <label for="q5_proposed_mechanism">how would this change produce your desired outcome, step by step?</label>
+        <textarea id="q5_proposed_mechanism" name="q5_proposed_mechanism" rows="8"></textarea>
+        <label for="q5_evidence">which steps have you got evidence for?</label>
+        <textarea id="q5_evidence" name="q5_evidence" rows="5"></textarea>
+      </section>
+
+      <section class="sketch-question" data-question="q6" data-stage="3" data-stage-name="what can move?" hidden>
+        <div class="question-number">q6</div>
+        <h1>if you were to make changes, what do you think would become worse, harder, slower, riskier or more expensive?</h1>
+        <label for="q6_worse">what may get worse?</label>
+        <textarea id="q6_worse" name="q6_worse" rows="8"></textarea>
+      </section>
+
+      <section class="sketch-question" data-question="q7" data-stage="3" data-stage-name="what can move?" hidden>
+        <div class="question-number">q7</div>
+        <h1>what cannot be changed?</h1>
+        <label for="q7_cannot_change">constraints and fixed points</label>
+        <textarea id="q7_cannot_change" name="q7_cannot_change" rows="6"></textarea>
+        <label for="q7_working">what is already working well? which systems, people, processes, hardware, by-products and behaviours are good?</label>
+        <textarea id="q7_working" name="q7_working" rows="7"></textarea>
+      </section>
+
+      <section class="sketch-question" data-question="q8" data-stage="4" data-stage-name="what must be true?" hidden>
+        <div class="question-number">q8</div>
+        <h1>list every assumption that must be true for your approach to work.</h1>
+        <div class="answer-reference" data-reference="q5-q7"></div>
+        <label for="q8_assumptions">one assumption per line</label>
+        <textarea id="q8_assumptions" name="q8_assumptions" rows="8"></textarea>
+        <label for="q8_dangerous">of all the options, which would most savagely undermine the plan if it turned out to be false?</label>
+        <textarea id="q8_dangerous" name="q8_dangerous" rows="4"></textarea>
+        <label for="q8_postmortem">convince yourself that this assumption is plausibly false. helpful trick: imagine it failed, then do a post-mortem about what happened.</label>
+        <textarea id="q8_postmortem" name="q8_postmortem" rows="7"></textarea>
+      </section>
+
+      <section class="sketch-question" data-question="q9" data-stage="4" data-stage-name="what must be true?" hidden>
+        <div class="question-number">q9</div>
+        <h1>what's the strongest real-world signal that this assumption is failing?</h1>
+        <div class="answer-reference" data-reference="q8"></div>
+        <label for="q9_signal">strongest signal</label>
+        <textarea id="q9_signal" name="q9_signal" rows="6"></textarea>
+        <fieldset>
+          <legend>what's the source of that signal?</legend>
+          <label class="radio-line"><input type="radio" name="q9_source" value="observed directly"> observed directly</label>
+          <label class="radio-line"><input type="radio" name="q9_source" value="reported by someone else"> reported by someone else</label>
+          <label class="radio-line"><input type="radio" name="q9_source" value="inferred from other evidence"> inferred from other evidence</label>
+          <label class="radio-line"><input type="radio" name="q9_source" value="assumed"> assumed</label>
+          <label class="radio-line"><input type="radio" name="q9_source" value="unknown"> unknown</label>
+        </fieldset>
+      </section>
+
+      <section class="sketch-question" data-question="q10" data-stage="5" data-stage-name="what should happen next?" hidden>
+        <div class="question-number">q10</div>
+        <h1>do a brain dump of every way you could test this dangerous assumption.</h1>
+        <div class="answer-reference" data-reference="q8-q9"></div>
+        <label for="q10_tests">every test you can think of</label>
+        <textarea id="q10_tests" name="q10_tests" rows="9"></textarea>
+        <label for="q10_selected">pick a small one that is reversible</label>
+        <textarea id="q10_selected" name="q10_selected" rows="5"></textarea>
+        <div class="result-grid">
+          <label for="q10_positive">what result would be positive?<textarea id="q10_positive" name="q10_positive" rows="4"></textarea></label>
+          <label for="q10_negative">what result would be negative?<textarea id="q10_negative" name="q10_negative" rows="4"></textarea></label>
+          <label for="q10_ambiguous">what result would muddy the water and undermine clarity?<textarea id="q10_ambiguous" name="q10_ambiguous" rows="4"></textarea></label>
+          <label for="q10_decision">what decision would you feel comfortable making at the end?<textarea id="q10_decision" name="q10_decision" rows="4"></textarea></label>
+        </div>
+      </section>
+
+      <section class="sketch-review" data-view="review" hidden>
+        <div class="section-label">// review</div>
+        <h1>this is your take so far.</h1>
+        <p class="sketch-lede">it can be useful to you without being complete. check that it says what you mean and that what it says feels true.</p>
+        <div class="review-list" data-review-list></div>
+        <label for="open_questions">anything still nagging at you?</label>
+        <textarea id="open_questions" name="open_questions" rows="5"></textarea>
+        <div class="actions">
+          <button class="button-link primary" type="button" data-create-sketch>create problem sketch →</button>
+          <button class="button-link" type="button" data-review-back>keep editing</button>
+        </div>
+      </section>
+
+      <nav class="sketch-navigation" aria-label="question navigation">
+        <button class="button-link" type="button" data-back>← back</button>
+        <button class="button-link primary" type="button" data-next>continue →</button>
+        <button class="text-action" type="button" data-skip>skip this question</button>
+        <button class="text-action danger" type="button" data-erase>erase my answers</button>
+      </nav>
+    </form>
+
+    <section class="sketch-panel sketch-output" data-view="output" hidden>
+      <div class="section-label">// problem sketch</div>
+      <h1>your take, for now.</h1>
+      <p class="sketch-lede">edit anything that does not say what you mean.</p>
+      <label for="generated_sketch">problem sketch</label>
+      <textarea id="generated_sketch" data-generated-sketch rows="34"></textarea>
+      <div class="actions output-actions">
+        <button class="button-link primary" type="button" data-copy-sketch>copy sketch</button>
+        <button class="button-link" type="button" data-download-markdown>download markdown</button>
+        <button class="button-link" type="button" data-print>save pdf / print</button>
+        <button class="button-link" type="button" data-edit-answers>edit answers</button>
+      </div>
+
+      <div class="continuation-block">
+        <h2>want another brain on it?</h2>
+        <p>if you think it might be helpful to think this through with someone else, you can keep working with the ai of your choice or propose it as a slobberdog problem.</p>
+        <div class="continuation-grid">
+          <div>
+            <h3>use your ai of choice</h3>
+            <p>bundle your problem sketch into a prompt designed to help an ai interrogate the frame, challenge the assumptions and improve the experiment before it starts suggesting solutions.</p>
+            <button class="button-link" type="button" data-review-ai>review ai prompt →</button>
+          </div>
+          <div>
+            <h3>ask slobberdog</h3>
+            <p>if it might help to think this through with someone else, propose it as a slobberdog problem. you can include your problem sketch.</p>
+            <a class="button-link primary" data-propose-sketch href="mailto:schemes@slobberdog.fyi?subject=problem%20proposal%20%E2%80%94%20problem%20sketch">propose a problem →</a>
+          </div>
+        </div>
+      </div>
+      <button class="text-action danger" type="button" data-erase>erase my answers</button>
+      <pre class="print-sketch" data-print-sketch aria-hidden="true"></pre>
+    </section>
+  </main>
+
+  <dialog class="ai-dialog" data-ai-dialog>
+    <form method="dialog">
+      <button class="dialog-close" value="cancel" aria-label="close">×</button>
+      <h2>review ai prompt</h2>
+      <p>this places your problem sketch on the clipboard so you can paste it into an ai system of your choice. check it first. do not send sensitive information to a model that is not approved to receive it.</p>
+      <label for="ai_prompt">editable prompt</label>
+      <textarea id="ai_prompt" data-ai-prompt rows="24"></textarea>
+      <div class="actions">
+        <button class="button-link primary" type="button" data-copy-ai>copy prompt</button>
+        <button class="button-link" value="cancel">cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" data-toast aria-live="polite" hidden></div>
+  <script src="discovery.js"></script>
+</body>
+</html>
