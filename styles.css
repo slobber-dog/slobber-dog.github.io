@@ -88,6 +88,7 @@ main {
 .topbar nav {
   display: flex;
   gap: 22px;
+  align-items: center;
 }
 
 .topbar nav a.active {
@@ -193,6 +194,138 @@ footer {
   text-decoration-color: var(--fg);
 }
 
+/* ---------- workshop content ---------- */
+.content-stack {
+  width: min(760px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.intro {
+  font-size: clamp(15px, 1.6vw, 20px);
+  line-height: 1.7;
+  color: #e4e4e4;
+  text-wrap: pretty;
+  text-align: center;
+}
+
+.muted-copy {
+  color: #a8a8a8;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.route-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.route-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 190px;
+  padding: 22px;
+  border: 1px solid #272727;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.route-card:hover { border-color: #666; background: #080808; }
+.route-card h2 { font-size: 14px; line-height: 1.5; font-weight: 500; color: #fff; }
+.route-card p { font-size: 12px; line-height: 1.7; color: #999; }
+.route-card .route-arrow { margin-top: auto; color: #ff3e00; font-size: 11px; }
+
+.materials-list {
+  max-width: 700px;
+  color: #b8b8b8;
+  font-size: 13px;
+  line-height: 2;
+  text-align: center;
+}
+
+.detail-block { border-top: 1px solid #262626; padding-top: 22px; }
+.detail-block h2 { color: #fff; font-size: 13px; margin-bottom: 12px; font-weight: 500; }
+.detail-block p, .detail-block li { color: #aaa; font-size: 13px; line-height: 1.75; }
+.detail-block ul { padding-left: 20px; display: grid; gap: 7px; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 8px; }
+.button-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 14px;
+  border: 1px solid #555;
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+.button-link:hover { border-color: #fff; background: #0d0d0d; }
+.button-link.primary { border-color: #ff3e00; color: #ff6b3a; }
+
+.clearance-item { border: 1px solid #282828; padding: 22px; }
+.clearance-item h2 { color: #fff; font-size: 14px; margin-bottom: 10px; }
+.clearance-item p { color: #aaa; font-size: 12px; line-height: 1.75; }
+.clearance-tag { color: #ff3e00; font-size: 10px; letter-spacing: .14em; margin-bottom: 13px; }
+
+.context-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 4px 0 6px;
+}
+
+.context-picker h2 {
+  color: #777;
+  font-size: 10px;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.context-tag {
+  appearance: none;
+  border: 1px solid transparent;
+  background: #000;
+  color: #999;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.context-tag:hover { color: #fff; }
+.context-tag:focus-visible { outline: 1px solid #777; outline-offset: 2px; }
+.context-tag[aria-pressed="true"], .context-tag.selected {
+  color: #ff6b3a;
+  border-color: #ff3e00;
+  background: #000;
+}
+
+.selected-context {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  color: #666;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.selected-context[hidden] { display: none; }
+.selected-context .context-label { margin-right: 1px; }
+.selected-context .context-chip { color: #777; border: 1px solid #292929; padding: 2px 4px; }
+
 /* small label above body content on inner pages */
 .section-label {
   font-size: 11px;
@@ -247,6 +380,8 @@ main.inner-main, main:has(.section-label) {
 @media (max-width: 540px) {
   main { gap: 28px; padding: 70px 20px 70px; }
   .topbar, footer { font-size: 10px; padding: 12px 16px; }
-  .topbar nav { gap: 16px; }
+  .topbar { align-items: flex-start; }
+  .topbar nav { gap: 8px 14px; flex-wrap: wrap; justify-content: flex-end; max-width: 78vw; }
   .logo { width: 86vw; }
+  .route-grid { grid-template-columns: 1fr; }
 }
